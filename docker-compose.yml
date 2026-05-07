@@ -1,0 +1,5 @@
+# docker-compose.yml
+# NOTE: On macOS Monterey, run services natively instead:
+#   brew services start redis
+#   Chroma runs in-process via chromadb Python package
+# This file is used in CI/CD and production Docker environments.
