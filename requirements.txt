@@ -18,6 +18,7 @@ langchain-chroma==0.1.4
 
 # ── Redis ───────────────────────────────────────────────────────
 redis==5.2.0
+fakeredis==2.26.1     # in-memory Redis for unit tests
 
 # ── API Framework ───────────────────────────────────────────────
 fastapi==0.115.4

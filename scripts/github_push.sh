@@ -94,13 +94,13 @@ if git rev-parse HEAD > /dev/null 2>&1; then
     echo -e "${YELLOW}Repository already has commits${NC}"
     read -p "Create a new commit? (y/n): " create_commit
     if [ "$create_commit" = "y" ]; then
-        read -p "Enter commit message (default: 'Update RAG system'): " commit_msg
-        commit_msg=${commit_msg:-"Update RAG system"}
+        read -p "Enter commit message (default: 'Update Conversation Agent'): " commit_msg
+        commit_msg=${commit_msg:-"Update Conversation Agent"}
         git commit -m "$commit_msg" || echo -e "${YELLOW}No changes to commit${NC}"
     fi
 else
-    read -p "Enter commit message (default: 'Initial commit: RAG Assistant'): " commit_msg
-    commit_msg=${commit_msg:-"Initial commit: RAG Assistant"}
+    read -p "Enter commit message (default: 'Initial commit: Conversation Agent'): " commit_msg
+    commit_msg=${commit_msg:-"Initial commit: Conversation Agent"}
     git commit -m "$commit_msg"
     echo -e "${GREEN}✓ Initial commit created${NC}"
 fi
