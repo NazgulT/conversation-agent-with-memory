@@ -28,3 +28,6 @@ Thumbs.db
 .pytest_cache/
 htmlcov/
 .coverage
+
+#bash
+*.sh
