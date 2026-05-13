@@ -105,13 +105,13 @@ retrieved and injected into the prompt — giving the agent memory of returning 
 
 ---
 
-### ⏳ Phase 3 — Topic Guardrails
+### ✅  Phase 3 — Topic Guardrails
 
 Intent classifier using `gemma2:2b` — routes off-topic messages to fallback
 before reaching the main LLM. Prompt injection detection.
 
 
-### ⏳ Phase 4 — LangGraph Agent Graph
+### ✅  Phase 4 — LangGraph Agent Graph
 
 Wire all components into a stateful `StateGraph` with conditional routing:
 `classify_intent → retrieve_short_term → retrieve_long_term → build_context
