@@ -105,7 +105,7 @@ retrieved and injected into the prompt — giving the agent memory of returning 
 
 ---
 
-### ⏳ Phase 3 — Topic Guardrails
+### ✅ Phase 3 — Topic Guardrails
 
 Intent classifier using `gemma2:2b` — routes off-topic messages to fallback
 before reaching the main LLM. Prompt injection detection.
