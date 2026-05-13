@@ -82,7 +82,7 @@ Verified all services communicate correctly before writing any agent logic.
 
 - Native Redis via Homebrew (`redis-cli ping` → PONG)
 - Chroma running in-process (no server required)
-- Ollama serving `llama3.2:3b`, `gemma2:2b`, `nomic-embed-text`
+- Ollama serving `llama3.2:3b`, `gemma2:2b`, `nomic-embed-text`, `llama-guard3:1b`
 - LangSmith project created and receiving traces
 - HuggingFace token configured as cloud fallback
 - Switchable provider via `LLM_PROVIDER` in `.env`
@@ -109,6 +109,7 @@ retrieved and injected into the prompt — giving the agent memory of returning 
 
 Intent classifier using `gemma2:2b` — routes off-topic messages to fallback
 before reaching the main LLM. Prompt injection detection.
+
 
 ### ⏳ Phase 4 — LangGraph Agent Graph
 

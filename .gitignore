@@ -31,3 +31,7 @@ htmlcov/
 
 #bash
 *.sh
+
+#claude
+.claude/
+CLAUDE.md

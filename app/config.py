@@ -37,8 +37,9 @@ class Settings(BaseSettings):
 
     # ── Ollama ────────────────────────────────────────────────────
     ollama_base_url: str = "http://localhost:11434"
-    ollama_main_model: str = "llama3.2:3b"       
-    ollama_classifier_model: str = "phi3:mini"    
+    ollama_main_model: str = "llama3.2:3b"
+    ollama_classifier_model: str = "gemma2:2b"
+    ollama_guard_model: str = "llama-guard3:1b"
     ollama_embedding_model: str = "nomic-embed-text"
 
     # ── HuggingFace ───────────────────────────────────────────────
@@ -64,7 +65,7 @@ class Settings(BaseSettings):
     # ── Agent Behaviour ───────────────────────────────────────────
     buffer_memory_size: int = 10
     long_term_retrieval_k: int = 3
-    confidence_threshold: float = 0.4
+    confidence_threshold: float = 0.5
     max_retries: int = 2
 
     # Two separate timeouts now — classifier must be fast, main LLM can be slow

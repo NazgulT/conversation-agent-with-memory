@@ -178,6 +178,49 @@ def get_embeddings() -> Embeddings:
     raise ValueError(f"Unknown LLM_PROVIDER: {s.llm_provider}")
 
 
+# ── Safety / Guard LLM ───────────────────────────────────────────────────────
+
+@lru_cache
+def get_guard_llm() -> BaseChatModel:
+    """
+    Returns the Llama Guard 3 safety classification LLM.
+
+    Ollama: llama-guard3:1b
+      - temperature=0: deterministic safe/unsafe decisions
+      - num_predict=20: guard output is "safe" or "unsafe\nS{n}" — short
+      - 10s timeout: safety gate must be fast; failure closes the message
+
+    HuggingFace: falls back to the classifier model for basic safety heuristics.
+    """
+    s = get_settings()
+
+    if s.using_ollama:
+        from langchain_ollama import ChatOllama
+        return ChatOllama(
+            model=s.ollama_guard_model,
+            base_url=s.ollama_base_url,
+            temperature=0,
+            timeout=10,
+            num_predict=20,
+            num_ctx=512,
+        )
+
+    if s.using_huggingface:
+        # HuggingFace has no llama-guard equivalent at this size; reuse classifier
+        from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
+        endpoint = HuggingFaceEndpoint(
+            repo_id=s.hf_classifier_model,
+            huggingfacehub_api_token=s.hf_api_token,
+            task="text2text-generation",
+            temperature=0.0,
+            max_new_tokens=10,
+            timeout=10,
+        )
+        return ChatHuggingFace(llm=endpoint)
+
+    raise ValueError(f"Unknown LLM_PROVIDER: {s.llm_provider}")
+
+
 # ── Provider Info ─────────────────────────────────────────────────────────────
 
 def get_provider_info() -> dict:
@@ -187,6 +230,7 @@ def get_provider_info() -> dict:
         "provider": s.llm_provider,
         "main_model": s.active_main_model,
         "classifier_model": s.active_classifier_model,
+        "guard_model": s.ollama_guard_model if s.using_ollama else s.hf_classifier_model,
         "embedding_model": s.active_embedding_model,
         "ollama_url": s.ollama_base_url if s.using_ollama else None,
         "hf_token_set": bool(s.hf_api_token) if s.using_huggingface else None,
